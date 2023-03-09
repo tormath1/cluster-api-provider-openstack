@@ -488,6 +488,7 @@ clean-temporary: ## Remove all temporary files and folders
 	rm -f minikube.kubeconfig
 	rm -f kubeconfig
 	rm -rf _artifacts
+	rm -rf images
 
 .PHONY: clean-release
 clean-release: ## Remove the release folder
@@ -519,3 +520,19 @@ compile-e2e: ## Test e2e compilation
 
 .PHONY: FORCE
 FORCE:
+
+.PHONY: flatcar-1.26
+flatcar-1.26: ## build Flatcar images using latest Stable release
+	echo building-flatcar-1.26
+
+.PHONY: flatcar-1.25
+flatcar-1.25: ## build Flatcar images using latest Stable release
+	echo building-flatcar-1.25
+
+.PHONY: ubuntu-1.26
+ubuntu-1.26: ## build Flatcar images using latest Stable release
+	echo building-ubuntu-1.26
+
+.PHONY: ubuntu-1.25
+ubuntu-1.25: ## build Flatcar images using latest Stable release
+	echo building-ubuntu-1.25

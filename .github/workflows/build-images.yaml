@@ -1,0 +1,17 @@
+name: Build once a week (or on a manual trigger) CAPO supported images
+on:
+  schedule:
+    # run on Monday at 7
+    - cron:  '0 7 * * 1'
+  workflow_dispatch:
+
+jobs:
+  builds:
+    strategy:
+      matrix:
+        kubernetes_version: ["1.25", "1.26"]
+        os: ["flatcar", "ubuntu"]
+    steps:
+      - name: build
+        run: |
+          make ${{ matrix.os }}-${{ matrix.kubernetes_version }}
