@@ -17,9 +17,13 @@ spec:
     joinConfiguration:
       nodeRegistration:
         name: $${COREOS_OPENSTACK_HOSTNAME}
+        kubeletExtraArgs:
+          provider-id: openstack:///$${COREOS_OPENSTACK_INSTANCE_ID}
     initConfiguration:
       nodeRegistration:
         name: $${COREOS_OPENSTACK_HOSTNAME}
+        kubeletExtraArgs:
+          provider-id: openstack:///$${COREOS_OPENSTACK_INSTANCE_ID}
     format: ignition
     ignition:
       containerLinuxConfig:
@@ -41,6 +45,7 @@ spec:
                   EnvironmentFile=/run/metadata/flatcar
     preKubeadmCommands:
       - export COREOS_OPENSTACK_HOSTNAME=$${COREOS_OPENSTACK_HOSTNAME%.*}
+      - export COREOS_OPENSTACK_INSTANCE_ID=$${COREOS_OPENSTACK_INSTANCE_ID%.*}
       - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
       - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
 ---
@@ -54,8 +59,11 @@ spec:
       joinConfiguration:
         nodeRegistration:
           name: $${COREOS_OPENSTACK_HOSTNAME}
+          kubeletExtraArgs:
+            provider-id: openstack:///$${COREOS_OPENSTACK_INSTANCE_ID}
       preKubeadmCommands:
         - export COREOS_OPENSTACK_HOSTNAME=$${COREOS_OPENSTACK_HOSTNAME%.*}
+        - export COREOS_OPENSTACK_INSTANCE_ID=$${COREOS_OPENSTACK_INSTANCE_ID%.*}
         - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
         - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
       format: ignition
